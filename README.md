@@ -144,10 +144,12 @@ users:
    ssh-authorized-keys:
      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCfry91+PfnoYgP0R0E0vQcotrMBm4tesooq4nuL8sTo1a+8ovphhuGUGHCAmIJZqY7N2rnOpBpEsvQtZW0c8dGoFrYeR1ZaC7evHT5gxnbrbW4RTDeWZLsZt84wmlbadYLcCQ2UM6JSESDbd8bY4Vl795LS7+dj1rIgqfiJ2qci169sPY4As73emSFfIslS>
 
-
 ```
+
 3)![image](https://github.com/aztecprod/yandex-network-balance/assets/25949605/a2067846-b86c-405b-999d-91fe6066bcc4)
+
 4)![image](https://github.com/aztecprod/yandex-network-balance/assets/25949605/2dfe5b3d-9576-4856-9180-dcc1b9d28a96)
+
 5)![image](https://github.com/aztecprod/yandex-network-balance/assets/25949605/cbb75a6d-fc20-4fd7-9354-9048a7f046cc)
 
 
