@@ -1,7 +1,7 @@
 # "Отказоустойчивость в облаке" - Александр Шевцов
 ![image](https://github.com/aztecprod/yandex-network-balance/assets/25949605/ef92684e-a78f-4d5c-89aa-48ef31438e1b)
 
-1) Terraform - main.tf
+1) Конфигурация файла main.tf
 ```
 terraform {
   required_providers {
