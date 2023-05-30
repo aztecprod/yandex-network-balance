@@ -152,9 +152,9 @@ users:
 
 ![image](https://github.com/aztecprod/yandex-network-balance/assets/25949605/16b5f66e-01ba-4352-8752-1840ec86de2e)
 
+3) Скриншот страницы, которая открылась при запросе IP-адреса балансировщика
 ![image](https://github.com/aztecprod/yandex-network-balance/assets/25949605/cbb75a6d-fc20-4fd7-9354-9048a7f046cc)
 
-3) Скриншот страницы, которая открылась при запросе IP-адреса балансировщика
 ![image](https://github.com/aztecprod/yandex-network-balance/assets/25949605/2e0082ac-4b00-4e63-8b18-b96a91a90110)
 
 1) Конфигурация main.tf 
