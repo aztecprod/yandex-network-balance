@@ -150,6 +150,8 @@ users:
 
 ![image](https://github.com/aztecprod/yandex-network-balance/assets/25949605/2dfe5b3d-9576-4856-9180-dcc1b9d28a96)
 
+![image](https://github.com/aztecprod/yandex-network-balance/assets/25949605/16b5f66e-01ba-4352-8752-1840ec86de2e)
+
 ![image](https://github.com/aztecprod/yandex-network-balance/assets/25949605/cbb75a6d-fc20-4fd7-9354-9048a7f046cc)
 
 
