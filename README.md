@@ -155,3 +155,116 @@ users:
 ![image](https://github.com/aztecprod/yandex-network-balance/assets/25949605/cbb75a6d-fc20-4fd7-9354-9048a7f046cc)
 
 
+![image](https://github.com/aztecprod/yandex-network-balance/assets/25949605/2e0082ac-4b00-4e63-8b18-b96a91a90110)
+
+1) Конфигурация main.tf 
+```
+terraform {
+  required_providers {
+    yandex = {
+      source = "yandex-cloud/yandex"
+    }
+  }
+}
+
+provider "yandex" {
+  token     = "y0_AgAAAAAe5bzAAATuwQAAAADegFtPgh5mgJFKSmmN3h_gtGKaIoQD6b8"
+  cloud_id  = "b1glk6l56hkqpmajlhbc"
+  folder_id = "b1g6c24ejqn6hsh955bf"
+  zone      = "ru-central1-b"
+}
+
+
+resource "yandex_compute_instance_group" "ig-1" {
+  name               = "fixed-ig-with-balancer"
+  folder_id          = "b1g6c24ejqn6hsh955bf"
+  service_account_id = "ajeqjqsad0ut1jjhbmsc"
+  instance_template {
+    platform_id = "standard-v3"
+    resources {
+      memory = 2
+      cores  = 2
+    }
+
+    boot_disk {
+      mode = "READ_WRITE"
+      initialize_params {
+        image_id = "fd8a67rb91j689dqp60h"
+      }
+    }
+
+    network_interface {
+      network_id = yandex_vpc_network.network-1.id
+      subnet_ids = ["${yandex_vpc_subnet.subnet-1.id}"]
+      nat = true
+    }
+
+    metadata = {
+      user-data = file("./metadata.yaml")
+    }
+  }
+
+  scale_policy {
+    fixed_scale {
+      size = 2
+    }
+  }
+
+  allocation_policy {
+    zones = ["ru-central1-b"]
+  }
+
+  deploy_policy {
+    max_unavailable = 1
+    max_expansion   = 0
+  }
+
+  load_balancer {
+    target_group_name        = "target-group"
+    target_group_description = "load balancer target group"
+  }
+}
+resource "yandex_lb_network_load_balancer" "lb-1" {
+  name = "network-load-balancer-1"
+
+  listener {
+    name = "network-load-balancer-1-listener"
+    port = 80
+    external_address_spec {
+      ip_version = "ipv4"
+    }
+  }
+
+  attached_target_group {
+    target_group_id = yandex_compute_instance_group.ig-1.load_balancer.0.target_group_id
+
+    healthcheck {
+      name = "http"
+      http_options {
+        port = 80
+        path = "/"
+      }
+    }
+  }
+}
+resource "yandex_vpc_network" "network-1" {
+  name = "network1"
+}
+
+resource "yandex_vpc_subnet" "subnet-1" {
+  name           = "subnet1"
+  zone           = "ru-central1-b"
+  network_id     = "${yandex_vpc_network.network-1.id}"
+  v4_cidr_blocks = ["192.168.100.0/24"]
+}
+
+
+```
+
+2) Cтатус балансировщика и целевой группы.
+![image](https://github.com/aztecprod/yandex-network-balance/assets/25949605/73a5bf41-13d7-4410-887e-4db0c8c98b17)
+![image](https://github.com/aztecprod/yandex-network-balance/assets/25949605/35cf6275-dabc-4d6d-9f96-6293a5e1ac3f)
+3) Скриншот страницы, которая открылась при запросе IP-адреса балансировщика
+![image](https://github.com/aztecprod/yandex-network-balance/assets/25949605/4ef0470c-aab7-4901-819b-8a1c001a9039)
+
+
