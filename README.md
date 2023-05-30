@@ -1,5 +1,7 @@
 # "Отказоустойчивость в облаке" - Александр Шевцов
 ![image](https://github.com/aztecprod/yandex-network-balance/assets/25949605/ef92684e-a78f-4d5c-89aa-48ef31438e1b)
+
+1) Terraform - main.tf
 ```
 terraform {
   required_providers {
@@ -114,3 +116,34 @@ resource "yandex_compute_snapshot" "snapshot-1" {
 }
 
 ```
+2) Конфигурация metadata.yaml
+```
+#cloud-config
+disable_root: true
+timezone: Europe/Moscow
+repo_update: true
+repo_upgrade: true
+
+apt:
+  preserve_sources_list: true
+
+packages:
+  - nginx
+
+runcmd:
+  - [systemctl, nginx-reload]
+  - [systemctl, enable, nginx.service ]
+  - [systemctl, start, --no-block, nginx.service]
+  - [sh, -c "echo $(hostname | cut -d '.' -f 1)" > /var/www/html/index.html" ]
+
+users:
+ - name: user
+   groups: sudo
+   shell: /bin/bash
+   sudo: ['ALL=(ALL) NOPASSWD:ALL']
+   ssh-authorized-keys:
+     - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCfry91+PfnoYgP0R0E0vQcotrMBm4tesooq4nuL8sTo1a+8ovphhuGUGHCAmIJZqY7N2rnOpBpEsvQtZW0c8dGoFrYeR1ZaC7evHT5gxnbrbW4RTDeWZLsZt84wmlbadYLcCQ2UM6JSESDbd8bY4Vl795LS7+dj1rIgqfiJ2qci169sPY4As73emSFfIslS>
+
+
+```
+4) 
